@@ -1,0 +1,31 @@
+{% extends 'student.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="card" style="width: 18rem;">
+                <table class="table">
+                      <thead>
+                        <tr>
+                          <th>SI no.</th>
+                            <th>NAME</th>
+                            <th>REGISTRATION ID</th>
+                            <th>DATE</th>
+                            <th>ATTENDANCE STATUS</th>
+
+
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for i in data %}
+                        <tr>
+                         <td>{{forloop.counter}}</td>
+                          <td>{{i.name}}</td>
+                          <td>{{i.registration_id}}</td>
+                          <td>{{i.date}}</td>
+                          <td>{{i.attendance_status}}</td>
+
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+              </div>
+{% endblock %}

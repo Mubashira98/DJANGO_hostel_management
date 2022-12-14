@@ -46,15 +46,17 @@ body {
 
   .home-info {
     margin-top: 7em;
+
   }
 
   .home-info h3 {
     color: #f0f0f0;
-    font-size: 11px;
+    font-size: 20px;
     font-weight: bold;
     letter-spacing: 4px;
     text-transform: uppercase;
     margin: 10px 0;
+    opacity: 1;
   }
 
 .section-padding {
@@ -518,7 +520,8 @@ nav.navbar.bootsnav.navbar-fixed .button-holder {
 #home {
   position: relative;
   padding: 190px 0px 120px 0px;
-  background: url(../img/banner.jpg);
+  background: url(../img/hostel.jpg);
+  opacity: 0.7;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat; }

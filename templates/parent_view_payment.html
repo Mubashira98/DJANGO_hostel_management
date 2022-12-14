@@ -1,0 +1,47 @@
+{% extends 'parent.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>SI no.</th>
+                            <th>STUDENT NAME</th>
+                            <th>REGISTRATION ID</th>
+                            <th>CARD NO.</th>
+                            <th>EXPIRY DATE</th>
+                            <th>CVV</th>
+                            <th>AMOUNT</th>
+<!--                            <th>EDIT/DELETE</th>-->
+
+
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for i in data %}
+                        <tr>
+                         <td>{{forloop.counter}}</td>
+                          <td>{{i.name}}</td>
+                          <td>{{i.registration_id}}</td>
+                          <td>{{i.card_no}}</td>
+                          <td>{{i.expiry_date}}</td>
+                          <td>{{i.cvv}}</td>
+                          <td>{{i.amount}}</td>
+
+<!--                            <td>-->
+<!--                                <p><a href="{% url 'update_payment' i.id %}" class="btn btn-success">UPDATE</a>-->
+<!--                                <a href="{% url 'delete_payment' i.id %}" class="btn btn-danger">DELETE</a> </p>-->
+<!--                            </td>-->
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+{% endblock %}

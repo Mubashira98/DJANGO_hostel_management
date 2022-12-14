@@ -15,7 +15,7 @@
                             <th>TOTAL ROOMS</th>
                             <th>ROOM FACILITIES</th>
                             <th>CONTACT NUMBER</th>
-<!--                            <th>HOSTEL IMAGE</th>-->
+                            <th>HOSTEL IMAGE</th>
                             <th>EDIT/DELETE</th>
 
                         </tr>
@@ -29,7 +29,7 @@
                           <td>{{i.total_rooms}}</td>
                           <td>{{i.room_facilities}}</td>
                           <td>{{i.contact_number}}</td>
-<!--                          <td><img src="{{i.hostel_image.url}}"></td>-->
+                          <td><img src="{{i.hostel_image.url}}"></td>
                             <td>
                                 <p><a href="{% url 'hostel_update' i.id %}" class="btn btn-success">UPDATE</a>
                                 <a href="{% url 'hostel_delete' i.id %}" class="btn btn-danger">DELETE</a> </p>

@@ -21720,6 +21720,7 @@ dl li {
 }
 
 .main-panel {
+  background-image: url("../images/admin.jpg");
   transition: width 0.25s ease, margin 0.25s ease;
   width: calc(100% - 240px);
   min-height: calc(100vh - 60px);
@@ -22014,6 +22015,7 @@ dl li {
 .sidebar .user-profile .user-name {
   font-weight: bold;
   margin-bottom: .5rem;
+  font-size: 20px;
 }
 
 /* style for off-canvas menu*/

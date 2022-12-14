@@ -30,10 +30,9 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href="index.html">
-<!--          <img src="{% static 'admin static/images/logo.svg' %}" alt="logo"/>-->
-          <h2>STUDENT</h2>
-        </a>
+<!--        <a class="navbar-brand brand-logo" href="index.html">-->
+<!--          <h2>STUDENT</h2>-->
+<!--        </a>-->
         <a class="navbar-brand brand-logo-mini" href="index.html"><img src="{% static 'admin static/images/logo-mini.svg' %}" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
@@ -53,72 +52,76 @@
           </li>
         </ul>
         <ul class="navbar-nav navbar-nav-right">
-            <li class="nav-item dropdown d-lg-flex d-none">
-                <button type="button" class="btn btn-info font-weight-bold">+ Create New</button>
-            </li>
-          <li class="nav-item dropdown d-flex">
-            <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
-              <i class="icon-air-play mx-0"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
-              <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                    <img src="{% static 'admin static/images/faces/face4.jpg' %}" alt="image" class="profile-pic">
-                </div>
-                <div class="preview-item-content flex-grow">
-                  <h6 class="preview-subject ellipsis font-weight-normal">David Grey
-                  </h6>
-                  <p class="font-weight-light small-text text-muted mb-0">
-                    The meeting is cancelled
-                  </p>
-                </div>
-              </a>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                    <img src="{% static 'admin static/images/faces/face2.jpg' %}" alt="image" class="profile-pic">
-                </div>
-                <div class="preview-item-content flex-grow">
-                  <h6 class="preview-subject ellipsis font-weight-normal">Tim Cook
-                  </h6>
-                  <p class="font-weight-light small-text text-muted mb-0">
-                    New product launch
-                  </p>
-                </div>
-              </a>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                    <img src="{% static 'admin static/images/faces/face3.jpg' %}" alt="image" class="profile-pic">
-                </div>
-                <div class="preview-item-content flex-grow">
-                  <h6 class="preview-subject ellipsis font-weight-normal"> Johnson
-                  </h6>
-                  <p class="font-weight-light small-text text-muted mb-0">
-                    Upcoming board meeting
-                  </p>
-                </div>
-              </a>
-            </div>
-          </li>
-          <li class="nav-item dropdown d-flex mr-4 ">
-            <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
-              <i class="icon-cog"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-              <p class="mb-0 font-weight-normal float-left dropdown-header">Settings</p>
-              <a class="dropdown-item preview-item">
-                  <i class="icon-head"></i> Profile
-              </a>
-              <a class="dropdown-item preview-item">
-                  <i class="icon-inbox"></i> Logout
-              </a>
-            </div>
-          </li>
-          <li class="nav-item dropdown mr-4 d-lg-flex d-none">
-            <a class="nav-link count-indicatord-flex align-item s-center justify-content-center" href="#">
-              <i class="icon-grid"></i>
-            </a>
-          </li>
+<!--            <li class="nav-item dropdown d-lg-flex d-none">-->
+<!--                <button type="button" class="btn btn-info font-weight-bold">+ Create New</button>-->
+<!--            </li>-->
+<!--          <li class="nav-item dropdown d-flex">-->
+<!--            <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">-->
+<!--              <i class="icon-air-play mx-0"></i>-->
+<!--            </a>-->
+<!--            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">-->
+<!--              <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>-->
+<!--              <a class="dropdown-item preview-item">-->
+<!--                <div class="preview-thumbnail">-->
+<!--                    <img src="{% static 'admin static/images/faces/face4.jpg' %}" alt="image" class="profile-pic">-->
+<!--                </div>-->
+<!--                <div class="preview-item-content flex-grow">-->
+<!--                  <h6 class="preview-subject ellipsis font-weight-normal">David Grey-->
+<!--                  </h6>-->
+<!--                  <p class="font-weight-light small-text text-muted mb-0">-->
+<!--                    The meeting is cancelled-->
+<!--                  </p>-->
+<!--                </div>-->
+<!--              </a>-->
+<!--              <a class="dropdown-item preview-item">-->
+<!--                <div class="preview-thumbnail">-->
+<!--                    <img src="{% static 'admin static/images/faces/face2.jpg' %}" alt="image" class="profile-pic">-->
+<!--                </div>-->
+<!--                <div class="preview-item-content flex-grow">-->
+<!--                  <h6 class="preview-subject ellipsis font-weight-normal">Tim Cook-->
+<!--                  </h6>-->
+<!--                  <p class="font-weight-light small-text text-muted mb-0">-->
+<!--                    New product launch-->
+<!--                  </p>-->
+<!--                </div>-->
+<!--              </a>-->
+<!--              <a class="dropdown-item preview-item">-->
+<!--                <div class="preview-thumbnail">-->
+<!--                    <img src="{% static 'admin static/images/faces/face3.jpg' %}" alt="image" class="profile-pic">-->
+<!--                </div>-->
+<!--                <div class="preview-item-content flex-grow">-->
+<!--                  <h6 class="preview-subject ellipsis font-weight-normal"> Johnson-->
+<!--                  </h6>-->
+<!--                  <p class="font-weight-light small-text text-muted mb-0">-->
+<!--                    Upcoming board meeting-->
+<!--                  </p>-->
+<!--                </div>-->
+<!--              </a>-->
+<!--            </div>-->
+<!--          </li>-->
+<!--          <li class="nav-item dropdown d-flex mr-4 ">-->
+<!--            <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">-->
+<!--              <i class="icon-cog"></i>-->
+<!--            </a>-->
+<!--            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">-->
+<!--              <p class="mb-0 font-weight-normal float-left dropdown-header">Settings</p>-->
+<!--              <a class="dropdown-item preview-item">-->
+<!--                  <i class="icon-head"></i> Profile-->
+<!--              </a>-->
+<!--              <a class="dropdown-item preview-item">-->
+<!--                  <i class="icon-inbox"></i> Logout-->
+<!--              </a>-->
+<!--            </div>-->
+<!--          </li>-->
+<!--          <li class="nav-item dropdown mr-4 d-lg-flex d-none">-->
+<!--            <a class="nav-link count-indicatord-flex align-item s-center justify-content-center" href="#">-->
+<!--              <i class="icon-grid"></i>-->
+
+<!--            </a>-->
+<!--          </li>-->
+<!--            <li class="nav-item dropdown d-lg-flex d-none">-->
+<!--
+          </li>-->
         </ul>
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
           <span class="icon-menu"></span>
@@ -133,66 +136,25 @@
 <!--          <div class="user-image">-->
 <!--            <img src="{% static 'admin static/images/faces/face28.png' %}">-->
 <!--          </div>-->
-<!--          <div class="user-name">-->
-<!--              Edward Spencer-->
-<!--          </div>-->
+          <div class="user-name">
+              STUDENT
+          </div>
 <!--          <div class="user-designation">-->
 <!--              Developer-->
 <!--          </div>-->
         </div>
         <ul class="nav">
-<!--          <li class="nav-item">-->
-<!--            <a class="nav-link" href="index.html">-->
-<!--              <i class="icon-box menu-icon"></i>-->
-<!--              <span class="menu-title">Hostel</span>-->
-<!--              <i class="menu-arrow"></i>-->
-<!--            </a>-->
-<!--          </li>-->
-<!--          <li class="nav-item">-->
-<!--            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">-->
-<!--              <i class="icon-disc menu-icon"></i>-->
-<!--              <span class="menu-title">Food</span>-->
-
-<!--              <i class="menu-arrow"></i>-->
-<!--            </a>-->
-
-<!--            <div class="collapse">-->
-<!--              <ul class="nav flex-column sub-menu">-->
-<!--                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>-->
-<!--                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>-->
-<!--              </ul>-->
-<!--            </div>-->
-<!--          </li>-->
-<!--          <li class="nav-item">-->
-<!--            <a class="nav-link" href="pages/forms/basic_elements.html">-->
-<!--              <i class="icon-file menu-icon"></i>-->
-<!--              <span class="menu-title">Complaints</span>-->
-<!--            </a>-->
-<!--          </li>-->
-<!--          <li class="nav-item">-->
-<!--            <a class="nav-link" href="{% static 'admin static/pages/charts/chartjs.html' %}">-->
-<!--              <i class="icon-pie-graph menu-icon"></i>-->
-<!--              <span class="menu-title">Fee</span>-->
-<!--            </a>-->
-<!--          </li>-->
-<!--          <li class="nav-item">-->
-<!--            <a class="nav-link" href="pages/tables/basic-table.html">-->
-<!--              <i class="icon-command menu-icon"></i>-->
-<!--              <span class="menu-title">Notification</span>-->
-<!--            </a>-->
-<!--          </li>-->
-
 
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-              <i class="bi bi-hospital menu-icon"></i>
+              <i class="bi bi-bank menu-icon"></i>
               <span class="menu-title">Hostel</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> view </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login-2.html"> add </a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'student_view_hostel' %}"> view hostel details</a></li>
+
 <!--               -->
               </ul>
             </div>
@@ -200,43 +162,43 @@
 
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#aut" aria-expanded="false" aria-controls="auth">
-              <i class="bi bi-egg menu-icon"></i>
+              <i class="mdi mdi-food menu-icon"></i>
 
               <span class="menu-title">Food</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="aut">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Add </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login-2.html">  View </a></li>
+
+                <li class="nav-item"> <a class="nav-link" href="{% url 'student_view_food' %}">  View </a></li>
               </ul>
             </div>
           </li>
 
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#au" aria-expanded="false" aria-controls="auth">
-              <i class="icon-head menu-icon"></i>
+              <i class="mdi mdi-note menu-icon"></i>
               <span class="menu-title">Complaints</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="au">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Add </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login-2.html"> view </a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'add_complaint' %}"> Add a complaint</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'view_complaint' %}"> view complaint </a></li>
               </ul>
             </div>
           </li>
 
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#aut1" aria-expanded="false" aria-controls="auth">
-              <i class="icon-head menu-icon"></i>
+              <i class="bi bi-currency-rupee menu-icon"></i>
               <span class="menu-title">Fee</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="aut1">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> add </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login-2.html"> view </a></li>
+
+                <li class="nav-item"> <a class="nav-link" href="{% url 'fee_view' %}"> view </a></li>
               </ul>
             </div>
           </li>
@@ -249,8 +211,8 @@
             </a>
             <div class="collapse" id="aut2">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> add </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login-2.html"> view </a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'add_payment' %}"> add payment</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'view_payment' %}"> view payment</a></li>
               </ul>
             </div>
           </li>
@@ -262,8 +224,7 @@
             </a>
             <div class="collapse" id="auth0">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> add </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login-2.html"> view</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'notification_view' %}"> view notification</a></li>
               </ul>
             </div>
           </li>
@@ -272,14 +233,14 @@
 
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#aut4" aria-expanded="false" aria-controls="auth">
-              <i class="icon-head menu-icon"></i>
+              <i class="bi bi-person-fill-check menu-icon"></i>
               <span class="menu-title">Attendance</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="aut4">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> add </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login-2.html"> view</a></li>
+
+                <li class="nav-item"> <a class="nav-link" href="{% url 'attendance_view' %}"> view</a></li>
               </ul>
             </div>
           </li>
@@ -292,64 +253,54 @@
             </a>
             <div class="collapse" id="aut5">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> add </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login-2.html"> view</a></li>
+
+                <li class="nav-item"> <a class="nav-link" href="{% url 'student_view_staff' %}"> view</a></li>
               </ul>
             </div>
           </li>
 
+
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#aut6" aria-expanded="false" aria-controls="auth">
-              <i class="icon-head menu-icon"></i>
-              <span class="menu-title">Parents</span>
+            <a class="nav-link" data-toggle="collapse" href="#new" aria-expanded="false" aria-controls="auth">
+              <i class="bi bi-people-fill menu-icon"></i>
+              <span class="menu-title">students</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="aut6">
+            <div class="collapse" id="new">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> add </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login-2.html"> view</a></li>
+
+                <li class="nav-item"> <a class="nav-link" href="{% url 'student_viewstudents' %}"> view</a></li>
               </ul>
             </div>
           </li>
 
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#auth1" aria-expanded="false" aria-controls="auth">
-              <i class="icon-food menu-icon"></i>
-              <span class="menu-title">Students</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="auth1">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> add </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login-2.html"> view </a></li>
-              </ul>
-            </div>
-          </li>
+
 
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#aut7" aria-expanded="false" aria-controls="auth">
-              <i class="icon-head menu-icon"></i>
+              <i class="bi bi-door-closed menu-icon"></i>
               <span class="menu-title">Room booking</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="aut7">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> add </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login-2.html"> view</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'add_book_room' %}"> add </a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'view_room_booking' %}"> view</a></li>
               </ul>
             </div>
           </li>
 
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#aut8" aria-expanded="false" aria-controls="auth">
-              <i class="icon-head menu-icon"></i>
+<!--              <i class="icon-head menu-icon"></i>-->
+              <i class="bi bi-bookmark menu-icon"></i><br>
               <span class="menu-title">Review</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="aut8">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> add </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login-2.html"> view</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'add_review' %}"> add </a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'view_review' %}"> view</a></li>
               </ul>
             </div>
           </li>
@@ -363,13 +314,15 @@
 
         </ul>
       </nav>
+      {% block content %}
+      {% endblock %}
       <!-- partial -->
 <!--      <div class="main-panel">-->
 <!--        <div class="content-wrapper">-->
 <!--          <div class="row">-->
 <!--            <div class="col-sm-12 mb-4 mb-xl-0">-->
-<!--              <h4 class="font-weight-bold text-dark">Hi, welcome back!</h4>-->
-<!--              <p class="font-weight-normal mb-2 text-muted">APRIL 1, 2019</p>-->
+<!--              <h4 class="font-weight-bold text-dark">WELCOME BACK {{request.user}}</h4>-->
+<!--             -->
 <!--            </div>-->
 <!--          </div>-->
 <!--          <div class="row mt-3">-->

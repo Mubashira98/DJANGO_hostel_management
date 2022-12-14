@@ -1,0 +1,42 @@
+{% extends 'admin.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>SI no.</th>
+                            <th>STAFF NAME</th>
+                            <th>EMAIL ID</th>
+                            <th>ADDRESS</th>
+                            <th>CONTACT NUMBER</th>
+                            <th>EDIT/DELETE</th>
+
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for i in data %}
+                        <tr>
+                         <td>{{forloop.counter}}</td>
+                          <td>{{i.name}}</td>
+                          <td>{{i.email_id}}</td>
+                          <td>{{i.address}}</td>
+                          <td>{{i.contact_number}}</td>
+
+                            <td>
+                                <p><a href="{% url 'staff_update' i.id %}" class="btn btn-success">UPDATE</a>
+                                <a href="{% url 'staff_delete' i.id %}" class="btn btn-danger">DELETE</a> </p>
+                            </td>
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+{% endblock %}
