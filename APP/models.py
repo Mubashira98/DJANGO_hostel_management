@@ -7,13 +7,14 @@ class Login_view(AbstractUser):
     is_parent = models.BooleanField(default=False)
 
 class Student_register(models.Model):
-    user = models.OneToOneField(Login_view,on_delete=models.CASCADE,related_name='student')
+    user = models.OneToOneField(Login_view,on_delete=models.CASCADE,related_name='student',null=True)
     name = models.CharField(max_length=250)
     registration_id = models.CharField(max_length=250)
     email = models.EmailField(max_length=250)
     date_of_birth = models.DateField()
     phone = models.IntegerField()
     address = models.CharField(max_length=250)
+    photo = models.ImageField(upload_to='image')
     approval_status = models.IntegerField(default=0)
 
 
@@ -21,9 +22,9 @@ class Student_register(models.Model):
         return self.name
 
 class Parent_register(models.Model):
-    user = models.OneToOneField(Login_view, on_delete=models.CASCADE)
+    user = models.OneToOneField(Login_view, on_delete=models.CASCADE,related_name='parent')
     parent_name = models.CharField(max_length=250)
-    student_name=models.CharField(max_length=250)
+    student_name=models.ForeignKey(Student_register,on_delete=models.CASCADE,null=True,blank=True)
     registration_id = models.CharField(max_length=250)
     email = models.EmailField(max_length=250)
     phone = models.IntegerField()
@@ -59,12 +60,25 @@ class Fee(models.Model):
     registration_id = models.CharField(max_length=250)
     from_date = models.DateField()
     to_date = models.DateField()
-    mess_bill = models.IntegerField()
-    room_rent = models.IntegerField()
-    amount = models.IntegerField()
-    status = models.CharField(max_length=200)
-    paid_date = models.DateField()
+    mess_bill = models.FloatField(default=0)
+    room_rent = models.FloatField(default=0)
+    amount = models.FloatField(default=0)
+    status = models.BooleanField(default=False)
+    paid_date = models.DateField(null=True)
     paid_by = models.CharField(max_length=200)
+    payment = models.CharField(max_length=200)
+
+    def get_total(self):
+        return self.room_rent+self.mess_bill
+
+
+class Payment(models.Model):
+    name = models.CharField(max_length=200)
+    registration_id = models.CharField(max_length=200)
+    card_no = models.IntegerField()
+    expiry_date = models.DateField()
+    cvv = models.IntegerField()
+    amount = models.IntegerField()
 
     def __str__(self):
         return self.registration_id
@@ -78,7 +92,8 @@ class Notification(models.Model):
         return self.notification
 
 class Attendance(models.Model):
-    name = models.ForeignKey(Student_register,on_delete=models.CASCADE)
+
+    name = models.ForeignKey(Student_register,on_delete=models.DO_NOTHING)
     registration_id = models.CharField(max_length=150)
     date = models.DateField()
     attendance_status = models.CharField(max_length=200)
@@ -89,23 +104,14 @@ class Attendance(models.Model):
 
 
 class Complaint(models.Model):
-    name = models.CharField(max_length=200)
+    student_name = models.ForeignKey(Student_register,on_delete=models.DO_NOTHING)
     date = models.DateField()
     complaint = models.TextField(max_length=1000)
     reply = models.TextField(max_length=500)
     def __str__(self):
         return self.name
 
-class Payment(models.Model):
-    name = models.CharField(max_length=200)
-    registration_id = models.CharField(max_length=200)
-    card_no = models.IntegerField()
-    expiry_date = models.DateField()
-    cvv = models.IntegerField()
-    amount = models.IntegerField()
 
-    def __str__(self):
-        return self.registration_id
 
 class Review(models.Model):
     name = models.CharField(max_length=200)
@@ -125,7 +131,7 @@ class Staff(models.Model):
         return self.name
 
 class Room_booking(models.Model):
-    name = models.CharField(max_length=200)
+    student_name = models.ForeignKey(Student_register,on_delete=models.DO_NOTHING,unique=True, null=True)
     joining_date = models.DateField()
     booking_date = models.DateField()
     booking_status = models.IntegerField(default=0)

@@ -1,14 +1,16 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from APP.forms import userregister, StudentForm, Parentform, complaint_form, payment_form, \
     review_form, roombooking_form
 from APP.models import Hostel, Food, Complaint, Fee, Payment, Notification, Attendance, Review, Staff, Room_booking, \
-    Student_register
+    Student_register, Parent_register
 
 
 # Create your views here.
+
 def mainpage(request):
     if request.method == "POST":
         username = request.POST.get('uname')
@@ -18,23 +20,27 @@ def mainpage(request):
             login(request,user)
             if user.is_staff:
                 return redirect('admin1')
-            elif user.is_student:
+            elif user is not None and user.is_student:
                 if user.student.approval_status == True:
                     login(request,user)
-                return redirect('studentview')
-            elif user.is_parent:
-                return redirect('parentview')
+                    return redirect('studentview')
+            elif user is not None and user.is_parent:
+                if user.parent.approval_status == True:
+                    login(request,user)
+
+                    return redirect('parentview')
         else:
             messages.info(request,"invalid credentials")
     return render(request,'index.html')
 
 # student registration form
+
 def student(request):
     u_form = userregister()
     s_form = StudentForm()
     if request.method == "POST":
         u_form = userregister(request.POST)
-        s_form = StudentForm(request.POST)
+        s_form = StudentForm(request.POST,request.FILES)
         if u_form.is_valid() and s_form.is_valid():
             user = u_form.save(commit=False)
             user.is_student = True
@@ -49,6 +55,7 @@ def student(request):
     return render(request,'signupstudent.html',{'u_form':u_form,'s_form':s_form})
 
 # parent registration from
+
 def parent(request):
     u_form = userregister()
     p_form = Parentform()
@@ -67,26 +74,30 @@ def parent(request):
             return redirect('mainpage')
     return render(request,'signupparent.html',{'u_form':u_form,'p_form':p_form})
 
-
+@login_required(login_url='mainpage')
 def admin1(request):
     return render(request,'admin.html')
 
+@login_required(login_url='mainpage')
 def studentview(request):
-    return render(request,'student.html')
+    return render(request,'student_dashboard.html')
 
+@login_required(login_url='mainpage')
 def parentview(request):
-    return render(request,'parent.html')
+    return render(request,'parent_dashboard.html')
 
+@login_required(login_url='mainpage')
 def student_view_hostel(request):
     data = Hostel.objects.all()
     return render(request,'hostel_view.html',{'data':data})
 
+@login_required(login_url='mainpage')
 def student_view_food(request):
     data = Food.objects.all()
     return render(request, 'food_view.html', {'data': data})
 
 
-
+@login_required(login_url='mainpage')
 def add_complaint(request):
     form = complaint_form()
     if request.method == "POST":
@@ -96,10 +107,15 @@ def add_complaint(request):
             return redirect('view_complaint')
     return render(request,'add_a_complaint.html',{'form':form})
 
+
+@login_required(login_url='mainpage')
 def view_complaint(request):
-    data = Complaint.objects.all()
+    u = Student_register.objects.get(user=request.user)
+    data = Complaint.objects.filter(student_name=u)
     return render(request,'view_complaint.html',{'data':data})
 
+
+@login_required(login_url='mainpage')
 def complaint_update(request,id):
     comp1 = Complaint.objects.get(id=id)
     form = complaint_form(instance=comp1)
@@ -110,14 +126,18 @@ def complaint_update(request,id):
         return redirect('view_complaint')
     return render(request,'update_complaint.html',{'form':form})
 
+@login_required(login_url='mainpage')
 def complaint_delete(request,id):
     Complaint.objects.get(id=id).delete()
     return redirect('view_complaint')
 
+@login_required(login_url='mainpage')
 def fee_view(request):
-    data = Fee.objects.all()
+    u = Student_register.objects.get(user=request.user)
+    data = Fee.objects.filter(Student_name=u)
     return render(request,'fee_view_details.html',{'data':data})
 
+@login_required(login_url='mainpage')
 def add_payment(request):
     form = payment_form()
     if request.method == "POST":
@@ -127,10 +147,12 @@ def add_payment(request):
             return redirect('view_payment')
     return render(request,'add_payment_details.html',{'form':form})
 
+@login_required(login_url='mainpage')
 def view_payment(request):
-    data = Payment.objects.all()
+    data = Payment.objects.filter(user=request.user)
     return render(request,'view_payment.html',{'data':data})
 
+@login_required(login_url='mainpage')
 def update_payment(request,id):
     pym1 = Payment.objects.get(id=id)
     form = payment_form(instance=pym1)
@@ -141,18 +163,23 @@ def update_payment(request,id):
         return redirect('view_payment')
     return render(request,'update_payment_details.html',{'form':form})
 
+@login_required(login_url='mainpage')
 def delete_payment(request,id):
     Payment.objects.get(id=id).delete()
     return redirect('view_payment')
 
+@login_required(login_url='mainpage')
 def notification_view(request):
     data = Notification.objects.all()
     return render(request, 'view_notification_details.html', {'data': data})
 
+@login_required(login_url='mainpage')
 def attendance_view(request):
-    data = Attendance.objects.all()
+    u = Student_register.objects.get(user=request.user)
+    data = Attendance.objects.filter(name=u)
     return render(request, 'view_attendance.html', {'data': data})
 
+@login_required(login_url='mainpage')
 def add_review(request):
     form = review_form()
     if request.method == "POST":
@@ -162,10 +189,13 @@ def add_review(request):
             return redirect('view_review')
     return render(request,'add_review.html',{'form':form})
 
+@login_required(login_url='mainpage')
 def view_review(request):
-    data = Review.objects.all()
+    data = Review.objects.filter(user=request.user)
     return render(request,'view_review.html',{'data':data})
 
+
+@login_required(login_url='mainpage')
 def update_review(request,id):
     rev1 = Review.objects.get(id=id)
     form = review_form(instance=rev1)
@@ -176,14 +206,20 @@ def update_review(request,id):
         return redirect('view_review')
     return render(request,'update_review_details.html',{'form':form})
 
+
+@login_required(login_url='mainpage')
 def delete_review(request,id):
     Review.objects.get(id=id).delete()
     return redirect('view_review')
 
+
+@login_required(login_url='mainpage')
 def student_view_staff(request):
     data = Staff.objects.all()
     return render(request, 'student_view_staff.html', {'data': data})
 
+
+@login_required(login_url='mainpage')
 def add_book_room(request):
     form = roombooking_form()
     if request.method == "POST":
@@ -194,10 +230,14 @@ def add_book_room(request):
     return render(request, 'book_room.html', {'form': form})
 
 
+@login_required(login_url='mainpage')
 def view_room_booking(request):
-    data = Room_booking.objects.all()
+    u = Student_register.objects.get(user=request.user)
+    data = Room_booking.objects.filter(student_name=u)
     return render(request, 'student_book_room.html', {'data': data})
 
+
+@login_required(login_url='mainpage')
 def update_roombooking(request,id):
     room1 = Room_booking.objects.get(id=id)
     form = roombooking_form(instance=room1)
@@ -208,27 +248,39 @@ def update_roombooking(request,id):
         return redirect('view_room_booking')
     return render(request,'update_roombooking.html',{'form':form})
 
+
+@login_required(login_url='mainpage')
 def delete_roombooking(request,id):
     Room_booking.objects.get(id=id).delete()
     return redirect('view_room_booking')
 
+
+@login_required(login_url='mainpage')
 def student_viewstudents(request):
     data = Student_register.objects.all()
     return render(request,'student_view_student.html',{'data':data})
 
 # parent views
+
+@login_required(login_url='mainpage')
 def parent_view_hostel(request):
     data = Hostel.objects.all()
     return render(request,'parent_hostel_view.html',{'data':data})
 
+
+@login_required(login_url='mainpage')
 def parent_view_staff(request):
     data = Staff.objects.all()
     return render(request, 'parent_view_staff.html', {'data': data})
 
+
+@login_required(login_url='mainpage')
 def parent_attendance_view(request):
     data = Attendance.objects.all()
     return render(request, 'parent_view_attendance.html', {'data': data})
 
+
+@login_required(login_url='mainpage')
 def parent_add_payment(request):
     form = payment_form()
     if request.method == "POST":
@@ -238,15 +290,76 @@ def parent_add_payment(request):
             return redirect('parent_view_payment')
     return render(request,'parent_add_payment_details.html',{'form':form})
 
+
+@login_required(login_url='mainpage')
 def parent_view_payment(request):
     data = Payment.objects.all()
     return render(request,'parent_view_payment.html',{'data':data})
 
+
+@login_required(login_url='mainpage')
 def parent_view_fee(request):
     data = Fee.objects.all()
     return render(request, 'parent_view_fee_details.html', {'data': data})
 
 
+@login_required(login_url='mainpage')
+def student_profileview(request):
+    student = Student_register.objects.get(user=request.user)
+    return render(request,'student_dashboard.html',{'student':student})
 
 
+@login_required(login_url='mainpage')
+def student_updateprofile(request):
+    student1 = Student_register.objects.get(user=request.user)
+    form = StudentForm(instance=student1)
+    if request.method == 'POST':
+        form = StudentForm(request.POST,request.FILES, instance=student1)
+        if form.is_valid():
+            form.save()
+        return redirect('student_profileview')
+    return render(request, 'student_update_profile.html', {'form': form})
 
+@login_required(login_url='mainpage')
+def delete_profile_student(request):
+    user = request.user
+    print(user)
+    if request.method == "POST":
+        user.delete()
+        messages.info(request, 'Your account deleted successfully')
+        return redirect('mainpage')
+    return render(request,'delete_account.html')
+
+
+@login_required(login_url='mainpage')
+def logout_view(request):
+    logout(request)
+    return redirect('mainpage')
+
+
+@login_required(login_url='mainpage')
+def parent_profileview(request):
+    parent = Parent_register.objects.get(user=request.user)
+    return render(request,'parent_dashboard.html',{'parent':parent})
+
+
+@login_required(login_url='mainpage')
+def parent_updateprofile(request):
+    parent1 = Parent_register.objects.get(user=request.user)
+    form = Parentform(instance=parent1)
+    if request.method == 'POST':
+        form = Parentform(request.POST,request.FILES, instance=parent1)
+        if form.is_valid():
+            form.save()
+        return redirect('parent_profileview')
+    return render(request, 'parent_updateprofile.html', {'form': form})
+
+@login_required(login_url='mainpage')
+def delete_profile_parent(request):
+    user = request.user
+    print(user)
+    if request.method == "POST":
+        user.delete()
+        messages.info(request, 'Your account deleted successfully')
+        return redirect('mainpage')
+    return render(request,'delete_account_parent.html')

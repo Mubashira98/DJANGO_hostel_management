@@ -1,8 +1,12 @@
 {% extends 'student.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-<div class="card" style="width: 18rem;">
-                <table class="table">
+<div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+
+                  <div class="table-responsive">
+                    <table class="table table-striped">
                       <thead>
                         <tr>
                           <th>SI no.</th>
@@ -28,4 +32,7 @@
                       </tbody>
                     </table>
               </div>
+                    </div>
+                  </div>
+    </div>
 {% endblock %}

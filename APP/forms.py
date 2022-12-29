@@ -1,3 +1,5 @@
+import datetime
+
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
@@ -21,7 +23,6 @@ class StudentForm(forms.ModelForm):
     date_of_birth = forms.DateField(widget=DateInput)
     class Meta:
         model = Student_register
-        fields = "__all__"
         exclude = ("user","approval_status")
 
 class Parentform(forms.ModelForm):
@@ -41,12 +42,52 @@ class food_form(forms.ModelForm):
         fields = "__all__"
 
 class fee_form(forms.ModelForm):
-    from_date = forms.DateField(widget=DateInput)
-    to_date = forms.DateField(widget=DateInput)
-    paid_date = forms.DateField(widget=DateInput)
+    Student_name = forms.ModelChoiceField(queryset=Student_register.objects.filter(approval_status=True))
+    from_date = forms.DateField()
+    to_date = forms.DateField()
+    room_rent = forms.CharField()
+
+    mess_bill = forms.CharField()
+
+
     class Meta:
         model = Fee
-        fields = "__all__"
+        fields = ('Student_name', 'from_date', 'to_date', 'room_rent', 'mess_bill')
+
+    # ajax
+    def clean(self):
+        cleaned_data = super().clean()
+        from_date = cleaned_data.get("from_date")
+        to_date = cleaned_data.get("to_date")
+
+        if (from_date > datetime.date.today()):
+            raise forms.ValidationError("Invalid From Date")
+        if to_date <= from_date or to_date > datetime.date.today():
+            raise forms.ValidationError("Invalid To Date")
+
+        from_day = from_date.strftime("%d")
+        from_m = from_date.strftime("%m")
+        to_day = to_date.strftime("%d")
+        print(from_m, to_day)
+
+        if int(from_day) != 1:
+            raise forms.ValidationError('Invalid From Date')
+        if int(from_m) == 2:
+            if int(to_day) not in [29, 28]:
+                raise forms.ValidationError('Invalid To Date')
+
+        else:
+
+            if int(from_m) in [1, 3, 5, 7, 8, 10, 12]:
+                if int(to_day) != 31:
+                    raise forms.ValidationError('Invalid To Date')
+
+            elif int(from_m) == [4, 6, 9, 11]:
+
+                if int(to_day) != 30:
+                    raise forms.ValidationError('Invalid To Date')
+
+        return cleaned_data
 
 class notification_form(forms.ModelForm):
     date = forms.DateField(widget=DateInput)
@@ -105,4 +146,5 @@ class roombooking_form(forms.ModelForm):
         model = Room_booking
         fields = "__all__"
         exclude = ('booking_status',)
+
 

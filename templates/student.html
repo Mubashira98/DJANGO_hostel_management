@@ -99,6 +99,9 @@
 <!--              </a>-->
 <!--            </div>-->
 <!--          </li>-->
+          <li class="nav-item dropdown d-lg-flex d-none">
+            <a href="logout_view" ><button type="button" class="btn btn-info font-weight-bold">Logout</button></a>
+            </li>
 <!--          <li class="nav-item dropdown d-flex mr-4 ">-->
 <!--            <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">-->
 <!--              <i class="icon-cog"></i>-->
@@ -137,13 +140,27 @@
 <!--            <img src="{% static 'admin static/images/faces/face28.png' %}">-->
 <!--          </div>-->
           <div class="user-name">
-              STUDENT
+             <a href="{% url 'student_profileview' %}" class="btn btn-primary">STUDENT</a>
           </div>
 <!--          <div class="user-designation">-->
 <!--              Developer-->
 <!--          </div>-->
         </div>
         <ul class="nav">
+
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link" data-toggle="collapse" href="{% url 'student_profileview' %}" aria-expanded="false" aria-controls="auth">-->
+<!--              <i class="icon-head menu-icon"></i>-->
+<!--              <span class="menu-title">My Profile</span>-->
+<!--&lt;!&ndash;              <i class="menu-arrow"></i>&ndash;&gt;-->
+<!--            </a>-->
+<!--            <div class="collapse" id="auths">-->
+<!--              <ul class="nav flex-column sub-menu">-->
+<!--&lt;!&ndash;                <li class="nav-item"> <a class="nav-link" href="{% url 'student_view_hostel' %}"> view hostel details</a></li>&ndash;&gt;-->
+<!--              </ul>-->
+<!--            </div>-->
+<!--          </li>-->
+
 
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
@@ -154,8 +171,6 @@
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="{% url 'student_view_hostel' %}"> view hostel details</a></li>
-
-<!--               -->
               </ul>
             </div>
           </li>
@@ -268,7 +283,6 @@
             </a>
             <div class="collapse" id="new">
               <ul class="nav flex-column sub-menu">
-
                 <li class="nav-item"> <a class="nav-link" href="{% url 'student_viewstudents' %}"> view</a></li>
               </ul>
             </div>

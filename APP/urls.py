@@ -77,6 +77,13 @@ urlpatterns = [
     path('admin_reply/<int:id>/', adminviews.admin_reply, name='admin_reply'),
     path('approve_roombooking/<int:id>/', adminviews.approve_roombooking, name='approve_roombooking'),
     path('reject_roombooking/<int:id>/', adminviews.reject_roombooking, name='reject_roombooking'),
-
+    path('student_profileview', views.student_profileview, name='student_profileview'),
+    path('student_updateprofile', views.student_updateprofile, name='student_updateprofile'),
+    path('delete_profile_student', views.delete_profile_student, name='delete_profile_student'),
+    path('logout_view', views.logout_view, name='logout_view'),
+    path('parent_profileview', views.parent_profileview, name='parent_profileview'),
+    path('ajax/load_bill/', adminviews.load_bill, name='ajax_load_bill'),
+    path('parent_updateprofile', views.parent_updateprofile, name='parent_updateprofile'),
+    path('delete_profile_parent', views.delete_profile_parent, name='delete_profile_parent'),
 
 ]
