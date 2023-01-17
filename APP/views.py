@@ -1,12 +1,13 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
 
 from APP.forms import userregister, StudentForm, Parentform, complaint_form, payment_form, \
     review_form, roombooking_form
-from APP.models import Hostel, Food, Complaint, Fee, Payment, Notification, Attendance, Review, Staff, Room_booking, \
-    Student_register, Parent_register
+from APP.models import Hostel, Food, Complaint, Payment, Notification, Attendance, Review, Staff, Room_booking, \
+    Student_register, Parent_register, Fee
 
 
 # Create your views here.
@@ -23,7 +24,7 @@ def mainpage(request):
             elif user is not None and user.is_student:
                 if user.student.approval_status == True:
                     login(request,user)
-                    return redirect('studentview')
+                    return redirect('student_profileview')
             elif user is not None and user.is_parent:
                 if user.parent.approval_status == True:
                     login(request,user)
@@ -100,9 +101,12 @@ def student_view_food(request):
 @login_required(login_url='mainpage')
 def add_complaint(request):
     form = complaint_form()
+    u = request.user
     if request.method == "POST":
         form = complaint_form(request.POST,request.FILES)
         if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = u
             form.save()
             return redirect('view_complaint')
     return render(request,'add_a_complaint.html',{'form':form})
@@ -133,40 +137,42 @@ def complaint_delete(request,id):
 
 @login_required(login_url='mainpage')
 def fee_view(request):
-    u = Student_register.objects.get(user=request.user)
-    data = Fee.objects.filter(Student_name=u)
+    data = Fee.objects.all()
     return render(request,'fee_view_details.html',{'data':data})
 
-@login_required(login_url='mainpage')
-def add_payment(request):
-    form = payment_form()
-    if request.method == "POST":
-        form = payment_form(request.POST,request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('view_payment')
-    return render(request,'add_payment_details.html',{'form':form})
+# @login_required(login_url='mainpage')
+# def add_payment(request):
+#     form = payment_form()
+#     if request.method == "POST":
+#         form = payment_form(request.POST,request.FILES)
+#         if form.is_valid():
+#             form.save()
+#             if request.GET.get('button') == 'a':
+#                 print('submit')
+#             return redirect('fee_view')
+#     return render(request,'add_payment_details.html',{'form':form})
 
 @login_required(login_url='mainpage')
-def view_payment(request):
-    data = Payment.objects.filter(user=request.user)
-    return render(request,'view_payment.html',{'data':data})
+def view_student_payment(request):
+    u = Student_register.objects.get(user=request.user)
+    data = Payment.objects.filter(name=u)
+    return render(request,'student_view_payment.html',{'data':data})
 
 @login_required(login_url='mainpage')
-def update_payment(request,id):
-    pym1 = Payment.objects.get(id=id)
-    form = payment_form(instance=pym1)
-    if request.method == 'POST':
-        form = payment_form(request.POST,instance=pym1)
-        if form.is_valid():
-            form.save()
-        return redirect('view_payment')
-    return render(request,'update_payment_details.html',{'form':form})
+def approve_payment(request,id):
+    pay1 = Payment.objects.get(id=id)
+    pay1.status = 1
+    pay1.save()
+    messages.info(request, 'Student fee paid successfully')
+    return redirect('view_student_payment')
 
-@login_required(login_url='mainpage')
-def delete_payment(request,id):
-    Payment.objects.get(id=id).delete()
-    return redirect('view_payment')
+def reject_payment(request,id):
+    pay1 = Payment.objects.get(id=id)
+    pay1.status = 2
+    pay1.save()
+    messages.info(request, 'Student fee not paid')
+    return redirect('view_student_payment')
+
 
 @login_required(login_url='mainpage')
 def notification_view(request):
@@ -363,3 +369,5 @@ def delete_profile_parent(request):
         messages.info(request, 'Your account deleted successfully')
         return redirect('mainpage')
     return render(request,'delete_account_parent.html')
+
+

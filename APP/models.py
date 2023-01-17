@@ -56,32 +56,29 @@ class Food(models.Model):
         return self.breakfast
 
 class Fee(models.Model):
-    Student_name = models.CharField(max_length=250)
-    registration_id = models.CharField(max_length=250)
-    from_date = models.DateField()
-    to_date = models.DateField()
+    hostel_name = models.ForeignKey(Hostel,on_delete=models.CASCADE)
+    date = models.DateField()
     mess_bill = models.FloatField(default=0)
     room_rent = models.FloatField(default=0)
     amount = models.FloatField(default=0)
-    status = models.BooleanField(default=False)
-    paid_date = models.DateField(null=True)
-    paid_by = models.CharField(max_length=200)
-    payment = models.CharField(max_length=200)
 
-    def get_total(self):
-        return self.room_rent+self.mess_bill
+    def __str__(self):
+        return self.room_rent
+
+
 
 
 class Payment(models.Model):
-    name = models.CharField(max_length=200)
-    registration_id = models.CharField(max_length=200)
-    card_no = models.IntegerField()
-    expiry_date = models.DateField()
-    cvv = models.IntegerField()
-    amount = models.IntegerField()
+    name = models.ForeignKey(Student_register,on_delete=models.CASCADE)
+    room_rent=models.IntegerField()
+    mess_bill=models.IntegerField()
+    amount=models.IntegerField()
+    from_date=models.DateField()
+    to_date=models.DateField()
+    status=models.IntegerField(default=0)
 
     def __str__(self):
-        return self.registration_id
+        return self.name
 
 class Notification(models.Model):
     notification = models.CharField(max_length=500)
@@ -107,9 +104,9 @@ class Complaint(models.Model):
     student_name = models.ForeignKey(Student_register,on_delete=models.DO_NOTHING)
     date = models.DateField()
     complaint = models.TextField(max_length=1000)
-    reply = models.TextField(max_length=500)
+    reply = models.TextField(null=True,blank=True)
     def __str__(self):
-        return self.name
+        return self.student_name
 
 
 

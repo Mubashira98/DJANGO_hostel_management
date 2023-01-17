@@ -33,7 +33,7 @@
 <!--&lt;!&ndash;          <img src="{% static 'admin static/images/logo.svg' %}" alt="logo"/>&ndash;&gt;-->
 <!--          <h2>ADMIN</h2>-->
 <!--        </a>-->
-        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="{% static 'admin static/images/logo-mini.svg' %}" alt="logo"/></a>
+<!--        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="{% static 'admin static/images/logo-mini.svg' %}" alt="logo"/></a>-->
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -235,24 +235,38 @@
             </a>
             <div class="collapse" id="aut1">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="{% url 'add_fee' %}"> add fee details</a></li>
-                <li class="nav-item"> <a class="nav-link" href="{% url 'view_fee' %}"> view fee details</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'add_fee_details' %}"> add fee details</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'view_fee_details' %}"> view fee details</a></li>
               </ul>
             </div>
           </li>
 
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#aut2" aria-expanded="false" aria-controls="auth">
-              <i class="bi bi-credit-card menu-icon"></i>
+            <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#aut01" aria-expanded="false" aria-controls="auth">
+              <i class="bi bi-currency-rupee menu-icon"></i>
               <span class="menu-title">Payment</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="aut2">
+            <div class="collapse" id="aut01">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="{% url 'payment_view' %}"> view payment</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'add_payment' %}"> add payment</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'view_payment' %}"> view payment</a></li>
               </ul>
             </div>
           </li>
+
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link" data-toggle="collapse" href="#aut2" aria-expanded="false" aria-controls="auth">-->
+<!--              <i class="bi bi-credit-card menu-icon"></i>-->
+<!--              <span class="menu-title">Payment</span>-->
+<!--              <i class="menu-arrow"></i>-->
+<!--            </a>-->
+<!--            <div class="collapse" id="aut2">-->
+<!--              <ul class="nav flex-column sub-menu">-->
+<!--                <li class="nav-item"> <a class="nav-link" href="#"> view payment</a></li>-->
+<!--              </ul>-->
+<!--            </div>-->
+<!--          </li>-->
 
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#aut3" aria-expanded="false" aria-controls="auth">

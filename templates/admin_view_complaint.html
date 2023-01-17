@@ -22,13 +22,16 @@
                       {% for i in data %}
                         <tr>
                          <td>{{forloop.counter}}</td>
-                          <td>{{i.name}}</td>
+                          <td>{{i.student_name}}</td>
                           <td>{{i.date}}</td>
                           <td>{{i.complaint}}</td>
 
                             <td>
                                 <p><a href="{% url 'admin_reply' i.id %}" class="btn btn-success">REPLY</a>
                                 </p>
+                                {% else %}
+                                {{i.reply}}
+                                {% endif %}
                             </td>
                         </tr>
                       {% endfor %}

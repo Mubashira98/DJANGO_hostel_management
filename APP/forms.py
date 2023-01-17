@@ -1,14 +1,21 @@
 import datetime
+import re
 
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
+from django.core.validators import RegexValidator
 
-from APP.models import Student_register, Parent_register, Login_view, Hostel, Food, Fee, Notification, Attendance, \
-    Complaint, Payment, Review, Staff, Room_booking
+from APP.models import Student_register, Parent_register, Login_view, Hostel, Food, Notification, Attendance, \
+    Complaint, Payment, Review, Staff, Room_booking, Fee
+
 
 class DateInput(forms.DateInput):
     input_type = 'date'
 
+def phone_number_validator(value):
+    if not re.compile(r'^[7-9]\d{9}$').match(value):
+        raise ValidationError('this is not a valid phone number')
 
 class userregister(UserCreationForm):
     username = forms.CharField()
@@ -20,12 +27,38 @@ class userregister(UserCreationForm):
 
 
 class StudentForm(forms.ModelForm):
+    phone = forms.CharField(validators=[phone_number_validator])
+    email = forms.CharField(validators=[
+        RegexValidator(regex='^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9.+_-]+\.[a-zA-Z]+$',message='Please enter a Valid Email')])
     date_of_birth = forms.DateField(widget=DateInput)
     class Meta:
         model = Student_register
         exclude = ("user","approval_status")
+def clean_email(self):
+    mail = self.cleaned_data["email"]
+    parent_email = Parent_register.objects.filter(email=mail)
+    student_email = Student_register.objects.filter(email=mail)
+    if parent_email.exists():
+        raise forms.ValidationError("this email is already registered")
+    if student_email.exists():
+        raise forms.ValidationError("this email is already registered")
+    return  mail
+
+
+def clean_phone_no(self):
+    phone = self.cleaned_data["email"]
+    parent_phone_no = Parent_register.objects.filter(phone=phone)
+    student_phone_no = Student_register.objects.filter(phone=phone)
+    if parent_phone_no.exists():
+        raise forms.ValidationError("this email is already registered")
+    if student_phone_no.exists():
+        raise forms.ValidationError("this email is already registered")
+    return phone
 
 class Parentform(forms.ModelForm):
+    phone = forms.CharField(validators=[phone_number_validator])
+    email = forms.CharField(validators=[
+        RegexValidator(regex='^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9.+_-]+\.[a-zA-Z]+$', message='Please enter a Valid Email')])
     class Meta:
         model = Parent_register
         fields = "__all__"
@@ -42,52 +75,19 @@ class food_form(forms.ModelForm):
         fields = "__all__"
 
 class fee_form(forms.ModelForm):
-    Student_name = forms.ModelChoiceField(queryset=Student_register.objects.filter(approval_status=True))
-    from_date = forms.DateField()
-    to_date = forms.DateField()
-    room_rent = forms.CharField()
-
-    mess_bill = forms.CharField()
-
-
+    date = forms.DateField(widget=DateInput)
     class Meta:
         model = Fee
-        fields = ('Student_name', 'from_date', 'to_date', 'room_rent', 'mess_bill')
+        fields = "__all__"
 
-    # ajax
-    def clean(self):
-        cleaned_data = super().clean()
-        from_date = cleaned_data.get("from_date")
-        to_date = cleaned_data.get("to_date")
+class payment_form(forms.ModelForm):
+    from_date = forms.DateField(widget=DateInput)
+    to_date = forms.DateField(widget=DateInput)
+    class Meta:
+        model = Payment
+        fields = "__all__"
+        exclude = ("status",)
 
-        if (from_date > datetime.date.today()):
-            raise forms.ValidationError("Invalid From Date")
-        if to_date <= from_date or to_date > datetime.date.today():
-            raise forms.ValidationError("Invalid To Date")
-
-        from_day = from_date.strftime("%d")
-        from_m = from_date.strftime("%m")
-        to_day = to_date.strftime("%d")
-        print(from_m, to_day)
-
-        if int(from_day) != 1:
-            raise forms.ValidationError('Invalid From Date')
-        if int(from_m) == 2:
-            if int(to_day) not in [29, 28]:
-                raise forms.ValidationError('Invalid To Date')
-
-        else:
-
-            if int(from_m) in [1, 3, 5, 7, 8, 10, 12]:
-                if int(to_day) != 31:
-                    raise forms.ValidationError('Invalid To Date')
-
-            elif int(from_m) == [4, 6, 9, 11]:
-
-                if int(to_day) != 30:
-                    raise forms.ValidationError('Invalid To Date')
-
-        return cleaned_data
 
 class notification_form(forms.ModelForm):
     date = forms.DateField(widget=DateInput)
@@ -122,11 +122,7 @@ class reply_form(forms.ModelForm):
         fields = "__all__"
         exclude = ("complaint", "date","name",)
 
-class payment_form(forms.ModelForm):
-    expiry_date = forms.DateField(widget=DateInput)
-    class Meta:
-        model = Payment
-        fields = "__all__"
+
 
 class review_form(forms.ModelForm):
     date = forms.DateField(widget=DateInput)
@@ -135,6 +131,8 @@ class review_form(forms.ModelForm):
         fields = "__all__"
 
 class staff_form(forms.ModelForm):
+    email_id = forms.CharField(validators=[
+        RegexValidator(regex='^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9.+_-]+\.[a-zA-Z]+$', message='Please enter a Valid Email')])
     class Meta:
         model = Staff
         fields = "__all__"

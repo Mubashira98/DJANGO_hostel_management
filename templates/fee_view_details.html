@@ -1,47 +1,71 @@
 {% extends 'student.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
+<head>
+    <style>
+        th,td{
+        padding:20px;
+        }
+    </style>
+</head>
 <div class="col-lg-12 grid-margin stretch-card">
-              <div class="card">
+              <div class="card" >
                 <div class="card-body">
                   
                   <div class="table-responsive">
-                    <table class="table table-striped">
-                      <thead>
+                    <table class="table-info" style="width:50%;height:50%">
+                        <tbody>
                         <tr>
-                          <th>SI no.</th>
-                            <th>STUDENT NAME</th>
-                            <th>REGISTRATION ID</th>
-                            <th>FROM DATE</th>
-                            <th>TO DATE</th>
-                            <th>MESS BILL</th>
+                            <th>HOSTEL NAME</th>
+                            {% for i in data %}
+                                <td>{{i.hostel_name}}</td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
                             <th>ROOM RENT</th>
-                            <th>TOTAL FEE</th>
-                            <th>STATUS</th>
-                            <th>PAID DATE</th>
-                            <th>PAID BY</th>
-
-
+                            {% for i in data %}
+                                <td>{{i.room_rent}}</td>
+                            {% endfor %}
                         </tr>
-                      </thead>
-                      <tbody>
-                      {% for i in data %}
                         <tr>
-                         <td>{{forloop.counter}}</td>
-                          <td>{{i.Student_name}}</td>
-                          <td>{{i.registration_id}}</td>
-                          <td>{{i.from_date}}</td>
-                          <td>{{i.to_date}}</td>
-                          <td>{{i.mess_bill}}</td>
-                          <td>{{i.room_rent}}</td>
-                          <td>{{i.amount}}</td>
-                          <td>{{i.status}}</td>
-                          <td>{{i.paid_date}}</td>
-                          <td>{{i.paid_by}}</td>
-
+                            <th>MESS BILL</th>
+                            {% for i in data %}
+                                <td>{{i.mess_bill}}</td>
+                            {% endfor %}
                         </tr>
-                      {% endfor %}
-                      </tbody>
+                        <tr>
+                            <th>AMOUNT</th>
+                            {% for i in data %}
+                                <td>{{i.amount}}</td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <th>DATE</th>
+                            {% for i in data %}
+                                <td>{{i.date}}</td>
+                            {% endfor %}
+                        </tr>
+<!--                        <tr>-->
+<!--                            <th>ROOM RENT</th>-->
+<!--                            {% for i in data %}-->
+<!--                                <td>{{i.room_rent}}</td>-->
+<!--                            {% endfor %}-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <th>TOTAL AMOUNT</th>-->
+<!--                            {% for i in data %}-->
+<!--                                <td>{{i.amount}}</td>-->
+<!--                            {% endfor %}-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <th></th>-->
+<!--                            <td>-->
+<!--                                <a href="{% url 'add_payment' %}" ><button>PAY NOW</button></a></td>-->
+<!--                        </tr>-->
+
+                        </tbody>
+
+
                     </table>
                   </div>
                 </div>
