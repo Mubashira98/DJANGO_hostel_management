@@ -1,13 +1,15 @@
-{% extends 'student.html' %}
+{% extends 'admin.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
 
-<div class="card" style="width: 60rem;margin: auto;">
+<div class="card" style="width: 40rem;margin: auto;">
     <div class="card-body">
         <form method="post">
             {% csrf_token %}
-            {{form|crispy}}
             <center>
+            <textarea name="reply"></textarea><br><br>
+                
+
                 <button type="submit" class="btn btn-primary">Submit</button>
             </center>
         </form>

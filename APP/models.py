@@ -101,10 +101,10 @@ class Attendance(models.Model):
 
 
 class Complaint(models.Model):
-    student_name = models.ForeignKey(Student_register,on_delete=models.DO_NOTHING)
+    student_name = models.ForeignKey(Student_register,on_delete=models.CASCADE)
     date = models.DateField()
     complaint = models.TextField(max_length=1000)
-    reply = models.TextField(null=True,blank=True)
+    reply = models.TextField(null=True)
     def __str__(self):
         return self.student_name
 
@@ -128,7 +128,7 @@ class Staff(models.Model):
         return self.name
 
 class Room_booking(models.Model):
-    student_name = models.ForeignKey(Student_register,on_delete=models.DO_NOTHING,unique=True, null=True)
+    student_name = models.ForeignKey(Student_register,on_delete=models.DO_NOTHING )
     joining_date = models.DateField()
     booking_date = models.DateField()
     booking_status = models.IntegerField(default=0)

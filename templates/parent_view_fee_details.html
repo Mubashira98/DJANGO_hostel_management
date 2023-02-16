@@ -10,16 +10,12 @@
                       <thead>
                         <tr>
                           <th>SI no.</th>
-                            <th>STUDENT NAME</th>
-                            <th>REGISTRATION ID</th>
-                            <th>FROM DATE</th>
-                            <th>TO DATE</th>
+                            <th>HOSTEL NAME</th>
+                            <th>DATE</th>
                             <th>MESS BILL</th>
                             <th>ROOM RENT</th>
-                            <th>TOTAL FEE</th>
-                            <th>STATUS</th>
-                            <th>PAID DATE</th>
-                            <th>PAID BY</th>
+                            <th>TOTAL AMOUNT</th>
+
 <!--                            <th>EDIT/DELETE</th>-->
 
                         </tr>
@@ -28,16 +24,12 @@
                       {% for i in data %}
                         <tr>
                          <td>{{forloop.counter}}</td>
-                          <td>{{i.Student_name}}</td>
-                          <td>{{i.registration_id}}</td>
-                          <td>{{i.from_date}}</td>
-                          <td>{{i.to_date}}</td>
+                          <td>{{i.hostel_name}}</td>
+                          <td>{{i.date}}</td>
                           <td>{{i.mess_bill}}</td>
                           <td>{{i.room_rent}}</td>
                           <td>{{i.amount}}</td>
-                          <td>{{i.status}}</td>
-                          <td>{{i.paid_date}}</td>
-                          <td>{{i.paid_by}}</td>
+
 <!--                            <td>-->
 <!--                                <p><a href="{% url 'hostel_update' i.id %}" class="btn btn-success">UPDATE</a>-->
 <!--                                <a href="{% url 'hostel_delete' i.id %}" class="btn btn-danger">DELETE</a> </p>-->

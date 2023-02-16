@@ -29,7 +29,7 @@ def mainpage(request):
                 if user.parent.approval_status == True:
                     login(request,user)
 
-                    return redirect('parentview')
+                    return redirect('parent_profileview')
         else:
             messages.info(request,"invalid credentials")
     return render(request,'index.html')
@@ -282,7 +282,8 @@ def parent_view_staff(request):
 
 @login_required(login_url='mainpage')
 def parent_attendance_view(request):
-    data = Attendance.objects.all()
+    u = Parent_register.objects.get(user=request.user)
+    data = Attendance.objects.filter(name=u.student_name)
     return render(request, 'parent_view_attendance.html', {'data': data})
 
 
@@ -299,7 +300,8 @@ def parent_add_payment(request):
 
 @login_required(login_url='mainpage')
 def parent_view_payment(request):
-    data = Payment.objects.all()
+    u = Parent_register.objects.get(user=request.user)
+    data = Payment.objects.filter(name=u.student_name)
     return render(request,'parent_view_payment.html',{'data':data})
 
 

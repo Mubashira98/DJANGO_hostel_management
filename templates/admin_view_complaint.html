@@ -13,7 +13,7 @@
                             <th>STUDENT NAME</th>
                             <th>DATE</th>
                             <th>COMPLAINT</th>
-                            <th>EDIT/DELETE</th>
+                            <th>REPLY</th>
 
 
                         </tr>
@@ -25,8 +25,7 @@
                           <td>{{i.student_name}}</td>
                           <td>{{i.date}}</td>
                           <td>{{i.complaint}}</td>
-
-                            <td>
+                          <td>{% if i.reply == None %}
                                 <p><a href="{% url 'admin_reply' i.id %}" class="btn btn-success">REPLY</a>
                                 </p>
                                 {% else %}

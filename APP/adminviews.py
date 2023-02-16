@@ -353,21 +353,13 @@ def admin_view_complaint(request):
 
 @login_required(login_url='mainpage')
 def admin_reply(request,id):
-    form = Complaint.objects.get(id=id)
-    # form = reply_form(instance=reply1)
-    # if request.method == 'POST':
-    #     form = reply_form(request.POST,instance=reply1)
-    # if form.is_valid():
-    #     form.save()
-    #     return redirect('admin_view_complaint')
-    # return render(request,'admin_complaint_reply.html',{'form':form})
-
+    f = Complaint.objects.get(id=id)
     if request.method =="POST":
         r = request.POST.get('reply')
-        form.reply = r
-        form.save()
+        f.reply = r
+        f.save()
         return redirect('admin_view_complaint')
-    return render(request,'admin_complaint_reply.html',{'form':form})
+    return render(request,'admin_complaint_reply.html',{'f':f})
 
 
 @login_required(login_url='mainpage')
